@@ -303,6 +303,57 @@ h2.title em{font-style:normal;color:var(--volt)}
 @media(max-width:820px){.stats{grid-template-columns:repeat(2,1fr)}}
 
 /* ============================================================
+   PROOF OF WORK / CONTRIBUTIONS
+   ============================================================ */
+#proof{padding-bottom:clamp(40px,6vw,80px)}
+.proof-head{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(32px,6vw,90px);align-items:end}
+@media(max-width:900px){.proof-head{grid-template-columns:1fr;align-items:start}}
+.proof-head .proof-note{color:var(--muted);font-size:15.5px;line-height:1.75;margin:0;max-width:44ch}
+.proof-head .proof-note strong{color:var(--fg);font-weight:500}
+
+.shot{position:relative;margin:clamp(40px,6vw,76px) 0 0;border:1px solid var(--line);
+  border-radius:20px;overflow:hidden;background:var(--ink-2);
+  box-shadow:0 50px 100px -50px rgba(0,0,0,.95);
+  transition:transform .8s var(--ease),border-color .8s var(--ease),box-shadow .8s var(--ease)}
+.shot::before{content:"";position:absolute;inset:-1px;border-radius:20px;pointer-events:none;z-index:2;
+  background:linear-gradient(180deg,rgba(217,255,60,.14),transparent 26%);opacity:0;transition:opacity .8s var(--ease)}
+.shot:hover{transform:translateY(-6px);border-color:var(--line-2);box-shadow:0 60px 120px -50px rgba(0,0,0,1)}
+.shot:hover::before{opacity:1}
+
+.shot-bar{display:flex;align-items:center;gap:8px;padding:12px 14px;border-bottom:1px solid var(--line);
+  background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.012))}
+.shot-bar i{width:9px;height:9px;border-radius:50%;background:var(--line-2);flex:0 0 auto}
+.shot-bar i:first-child{background:rgba(217,255,60,.55)}
+.shot-url{flex:1;min-width:0;text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:.04em;
+  color:var(--muted-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 8px}
+.shot-tag{flex:0 0 auto;font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--volt);background:var(--volt-dim);border:1px solid rgba(217,255,60,.22);border-radius:999px;padding:4px 10px}
+@media(max-width:640px){.shot-tag{display:none}}
+
+.shot-media{overflow:hidden;background:#0D1117;position:relative}
+/* the source image is a full-page capture — this crops it, responsively,
+   down to just the contribution graph (x420,y565 · 1010x340 of 1672x941) */
+.shot-frame{position:relative;width:100%;aspect-ratio:1010/340;overflow:hidden}
+.shot-frame img{position:absolute;top:0;left:0;width:165.545%;height:auto;max-width:none;
+  transform:translate(-25.1196%,-60.0425%);filter:saturate(1.06) contrast(1.03)}
+@media(max-width:720px){
+  .shot-media{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+  .shot-frame{width:660px}
+}
+
+.shot-foot{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  padding:14px 18px;border-top:1px solid var(--line);background:rgba(255,255,255,.015);
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.shot-foot b{color:var(--volt);font-weight:500}
+.shot-foot .swipe{display:none;font-style:normal;color:var(--muted-2)}
+@media(max-width:720px){.shot-foot .swipe{display:inline}}
+.shot-foot .live{display:inline-flex;align-items:center;gap:8px}
+.shot-foot .live::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--volt);
+  box-shadow:0 0 0 0 rgba(217,255,60,.55);animation:pulse 2.4s var(--ease-2) infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 9px rgba(217,255,60,0)}100%{box-shadow:0 0 0 0 rgba(217,255,60,0)}}
+@media (prefers-reduced-motion:reduce){.shot-foot .live::before{animation:none}}
+
+/* ============================================================
    EXPERIENCE
    ============================================================ */
 .xp-wrap{display:grid;grid-template-columns:.62fr 1.38fr;gap:clamp(28px,5vw,72px);align-items:start}
@@ -320,6 +371,7 @@ h2.title em{font-style:normal;color:var(--volt)}
 .role:hover h3{color:var(--volt)}
 .role .co{color:var(--muted);font-size:14.5px;margin:8px 0 0;display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center}
 .role .co .dot{width:3px;height:3px;border-radius:50%;background:var(--muted-2)}
+.shot-foot .dot{display:inline-block;width:3px;height:3px;border-radius:50%;background:var(--muted-2);vertical-align:middle;margin:0 6px}
 .role .when{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;
   color:var(--muted);white-space:nowrap;padding:6px 12px;border:1px solid var(--line);border-radius:999px}
 .role .when.now{color:var(--volt);border-color:rgba(217,255,60,.4);background:var(--volt-dim)}
@@ -559,6 +611,41 @@ footer a:hover{color:var(--volt)}
     <div class="stat"><div class="n" data-count="20" data-suffix="%">0<i>%</i></div><div class="k">Lower cloud<br>infra cost</div></div>
     <div class="stat"><div class="n" data-count="40" data-suffix="%">0<i>%</i></div><div class="k">Fewer post&#8209;release<br>defects</div></div>
   </div>
+</section>
+
+<!-- ============ PROOF OF WORK ============ -->
+<section id="proof">
+  <div class="eyebrow" data-rv><b>Proof of work</b> — GitHub Enterprise @ Mr. Cooper</div>
+
+  <div class="proof-head">
+    <h2 class="statement" data-rv style="--d:60ms">
+      A year of <span class="hl">green squares</span>
+      <span class="dim">— 841 of them, and counting.</span>
+    </h2>
+    <p class="proof-note" data-rv style="--d:140ms">
+      A year of day&#8209;to&#8209;day delivery on <strong>Mr.&nbsp;Cooper's</strong> enterprise GitHub — feature
+      branches, code review and release cutovers across the Apollo servicing portals. Green squares
+      are only a proxy, but consistency compounds.
+    </p>
+  </div>
+
+  <figure class="shot" data-rv style="--d:200ms">
+    <div class="shot-bar" aria-hidden="true">
+      <i></i><i></i><i></i>
+      <span class="shot-url">github.com/suryakiran-challagulla_mrcooper</span>
+      <span class="shot-tag">Sep 2025 — Aug 2026</span>
+    </div>
+    <div class="shot-media">
+      <div class="shot-frame">
+        <img src="images/optimized/mrcgit.webp" width="1672" height="941" loading="lazy" decoding="async"
+             alt="Mr. Cooper GitHub Enterprise profile showing 841 contributions in the last year">
+      </div>
+    </div>
+    <figcaption class="shot-foot">
+      <span class="live">Contribution graph — last 12 months <em class="swipe">· swipe →</em></span>
+      <span><b>841</b> contributions <span class="dot"></span> <b>5</b> active days / week avg</span>
+    </figcaption>
+  </figure>
 </section>
 
 <!-- ============ EXPERIENCE ============ -->
